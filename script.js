@@ -1,0 +1,64 @@
+const OPTIONA = document.getElementById('optionA');
+const OPTIONB = document.getElementById('optionB');
+const OPTIONC = document.getElementById('optionC');
+const optionD = document.getElementById('optionD');
+
+const PREVIOUSBTN = document.getElementById('prevBtn');
+const NEXTBTN = document.getElementById('nextBtn');
+
+const  Questionarr = [
+{question: 'Which HTML tag is used to define the structure of a web page?', 
+    options: ['<head>','<html>','<body>','<section>'], answer: 1 },
+{question: 'Which HTML tag is used to display an image ?', options: ['<image>','<img>','<src>','<picture>'], answer: 1 },
+
+{question: 'What attribute is used to provide alternative text for an image?', 
+    options: ['title','name','alt','src'], answer: 2 },
+
+{question: 'Which CSS property is used to change text color?',
+     options: ['font-color','text-color','color','background-color'], 
+     answer: 2 },
+
+{question: 'Which CSS property controls the space inside an element?', 
+    options: ['margin','padding','border','gap'],
+     answer: 1 },
+
+{question: 'Which CSS display value places elements in a row by default?',
+     options: ['block','inline','flex','none'], answer: 2 },
+
+{question: 'How do you select an element with the class name box in CSS?',
+     options: ['#box','.box','box','*box'], answer: 1 },
+
+{question: 'Which HTML element is used for the largest heading?', 
+    options: ['<h6>','<heading>','<h1>','<head>'], answer: 2 },
+
+{question: 'Which JavaScript keyword is used to declare a constant variable?',
+     options: ['var','let','const','static'], answer: 2 },
+
+{question: 'What will console.log(2 + "2"); output?',
+     options: ['4','"22"','NaN','undefined'],
+      answer: 1 },
+
+{question: 'Which method is used to select an element by ID in JavaScript?',
+    options: ['getElementByClass()','querySelectorAll()','getElementById()','selectById()'],
+     answer: 2 },
+
+{question: 'Which symbol is used for comments in CSS?',
+     options: ['//','#','<!-- -->','/* */'],
+      answer: 3 },
+
+{question: 'Which HTML tag is used to create a button?', 
+    options: ['<input>','<btn>','<click>','<button>'],
+     answer: 3 },
+
+{question: 'What does the addEventListener() method do in JavaScript?', 
+    options: ['Adds styles to an element','Executes code when an event occurs','Creates a new HTML element','Removes an event'],
+     answer: 1 },
+
+{question: 'Which CSS unit is relative to the screen size?', 
+    options: ['px','em','%','vw'],
+     answer: 3 },
+
+
+
+
+]
