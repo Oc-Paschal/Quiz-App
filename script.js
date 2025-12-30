@@ -1,7 +1,8 @@
+const QUESTIONELEMENT = document.getElementById('question');
 const OPTIONA = document.getElementById('optionA');
 const OPTIONB = document.getElementById('optionB');
 const OPTIONC = document.getElementById('optionC');
-const optionD = document.getElementById('optionD');
+const OPTIOND = document.getElementById('optionD');
 
 const PREVIOUSBTN = document.getElementById('prevBtn');
 const NEXTBTN = document.getElementById('nextBtn');
@@ -57,8 +58,50 @@ const  Questionarr = [
 {question: 'Which CSS unit is relative to the screen size?', 
     options: ['px','em','%','vw'],
      answer: 3 },
-
-
-
-
 ]
+
+function shuffleArray(array) {
+  array.sort(() => Math.random() - 0.5);
+}
+
+
+
+let currentIndex = 0;
+
+function showQuestion() {
+  const currentQuestion = Questionarr[currentIndex];
+
+  QUESTIONELEMENT.textContent = currentQuestion.question;
+
+  optionA.textContent = currentQuestion.options[0];
+  optionB.textContent = currentQuestion.options[1];
+  optionC.textContent = currentQuestion.options[2];
+  optionD.textContent = currentQuestion.options[3];
+}
+
+
+shuffleArray(Questionarr);
+showQuestion();
+
+
+const showNext = () => {
+  if (currentIndex < Questionarr.length - 1) {
+    currentIndex++;
+    showQuestion();
+  }
+
+}
+
+NEXTBTN.addEventListener('click',showNext);
+
+
+
+const showPrev = () => {
+     if (currentIndex > 0) {
+    currentIndex--;
+    showQuestion();
+  }
+}
+
+PREVIOUSBTN.addEventListener('click', showPrev);
+
