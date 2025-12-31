@@ -88,6 +88,9 @@ const showNext = () => {
   if (currentIndex < Questionarr.length - 1) {
     currentIndex++;
     showQuestion();
+  }else {
+    const finalScore = calculateScore();
+    alert(`You scored ${finalScore} out of ${Questionarr.length}`);
   }
 
 }
@@ -105,3 +108,27 @@ const showPrev = () => {
 
 PREVIOUSBTN.addEventListener('click', showPrev);
 
+const userAnswers = []
+
+function selectAnswer(optionIndex) {
+  userAnswers[currentIndex] = optionIndex;
+}
+
+
+optionA.addEventListener('click', () => selectAnswer(0));
+optionB.addEventListener('click', () => selectAnswer(1));
+optionC.addEventListener('click', () => selectAnswer(2));
+optionD.addEventListener('click', () => selectAnswer(3));
+
+
+function calculateScore() {
+  let score = 0;
+
+  for (let i = 0; i < Questionarr.length; i++) {
+    if (userAnswers[i] === Questionarr[i].answer) {
+      score++;
+    }
+  }
+
+  return score;
+}
