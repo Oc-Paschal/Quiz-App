@@ -3,9 +3,18 @@ const OPTIONA = document.getElementById('optionA');
 const OPTIONB = document.getElementById('optionB');
 const OPTIONC = document.getElementById('optionC');
 const OPTIOND = document.getElementById('optionD');
+const OPTIONS = [OPTIONA, OPTIONB, OPTIONC, OPTIOND];
+const userAnswers = []
+
+let timeLeft = 60;
+let timerInterval;
+
+const TIMER = document.getElementById('timer');
+
 
 const PREVIOUSBTN = document.getElementById('prevBtn');
 const NEXTBTN = document.getElementById('nextBtn');
+
 
 const  Questionarr = [
 {question: 'Which HTML tag is used to define the structure of a web page?', 
@@ -69,6 +78,9 @@ function shuffleArray(array) {
 let currentIndex = 0;
 
 function showQuestion() {
+
+  clearInterval(timerInterval);
+
   const currentQuestion = Questionarr[currentIndex];
 
   QUESTIONELEMENT.textContent = currentQuestion.question;
@@ -77,11 +89,25 @@ function showQuestion() {
   optionB.textContent = currentQuestion.options[1];
   optionC.textContent = currentQuestion.options[2];
   optionD.textContent = currentQuestion.options[3];
+
+  OPTIONS.forEach(option => {
+    option.classList.remove(
+      'bg-blue-500',
+      'text-white'
+    );
+  });
+
+  if (userAnswers[currentIndex] !== undefined) {
+    highlightOption(userAnswers[currentIndex]);
+  }
+
 }
 
 
 shuffleArray(Questionarr);
 showQuestion();
+startTimer();
+
 
 
 const showNext = () => {
@@ -89,14 +115,12 @@ const showNext = () => {
     currentIndex++;
     showQuestion();
   }else {
-    const finalScore = calculateScore();
-    alert(`You scored ${finalScore} out of ${Questionarr.length}`);
+    showResult();
   }
 
 }
 
 NEXTBTN.addEventListener('click',showNext);
-
 
 
 const showPrev = () => {
@@ -108,10 +132,10 @@ const showPrev = () => {
 
 PREVIOUSBTN.addEventListener('click', showPrev);
 
-const userAnswers = []
 
 function selectAnswer(optionIndex) {
   userAnswers[currentIndex] = optionIndex;
+  highlightOption(optionIndex);
 }
 
 
@@ -132,3 +156,76 @@ function calculateScore() {
 
   return score;
 }
+
+
+
+function highlightOption(selectedIndex) {
+  OPTIONS.forEach((option, index) => {
+    option.classList.remove(
+      'bg-blue-500',
+      'text-white'
+    );
+
+    if (index === selectedIndex) {
+      option.classList.add(
+        'bg-blue-500',
+        'text-white'
+      );
+    }
+  });
+}
+
+
+
+function showResult() {
+  const finalScore = calculateScore();
+
+  const resultModal = document.getElementById('resultModal');
+  const resultCard = document.getElementById('resultCard');
+  const scoreText = document.getElementById('scoreText');
+
+  scoreText.textContent = `You scored ${finalScore} out of ${Questionarr.length}`;
+
+  resultModal.classList.remove('hidden');
+
+  setTimeout(() => {
+    resultCard.classList.remove('scale-75', 'opacity-0');
+    resultCard.classList.add('scale-100', 'opacity-100');
+  }, 50);
+
+  if (finalScore >= 8) {
+  scoreText.classList.add('text-green-600');
+} else {
+  scoreText.classList.add('text-red-600');
+}
+
+
+scoreText.textContent =
+  finalScore >= 8
+    ? `🎉 Great job! You scored ${finalScore}/15`
+    : `😢 Try again. You scored ${finalScore}/15`;
+
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    TIMER.textContent = `Time: ${timeLeft}s`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      autoSubmitQuiz();
+    }
+  }, 1000);
+}
+
+
+function autoSubmitQuiz() {
+  // Optional: prevent double submission
+  NEXTBTN.disabled = true;
+  PREVIOUSBTN.disabled = true;
+
+  showResult(); // you already have this
+}
+
+

@@ -11,7 +11,10 @@
 
   <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
   <div class="bg-white shadow-lg rounded-lg p-6 max-w-md w-full">
-    
+    <p id="timer" class="text-right text-lg font-bold text-red-500     ">
+         Time: 60s
+   </p>
+
 
     <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Quiz App</h2>
     
@@ -35,7 +38,31 @@
     </div>
     
   </div>
+
+
+
+  <div
+  id="resultModal"
+  class="fixed inset-0 flex items-center justify-center bg-black/50 hidden"
+>
+  <div
+    class="bg-white rounded-xl p-6 w-[90%] max-w-sm text-center
+           transform scale-75 opacity-0 transition-all duration-500"
+    id="resultCard"
+  >
+    <h2 class="text-2xl font-bold mb-2">Quiz Completed 🎉</h2>
+    <p id="scoreText" class="text-lg mb-4"></p>
+
+    <button
+      class="bg-blue-500 text-white px-4 py-2 rounded-lg"
+      onclick="location.reload()"
+    >
+      Restart Quiz
+    </button>
+  </div>
 </div>
+
+  </div>
 
 
   <script src="script.js"></script>
