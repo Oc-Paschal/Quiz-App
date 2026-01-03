@@ -221,11 +221,11 @@ function startTimer() {
 
 
 function autoSubmitQuiz() {
-  // Optional: prevent double submission
+  
   NEXTBTN.disabled = true;
   PREVIOUSBTN.disabled = true;
 
-  showResult(); // you already have this
+  showResult(); 
 }
 
 
