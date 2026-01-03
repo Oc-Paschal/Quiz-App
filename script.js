@@ -79,8 +79,6 @@ let currentIndex = 0;
 
 function showQuestion() {
 
-  clearInterval(timerInterval);
-
   const currentQuestion = Questionarr[currentIndex];
 
   QUESTIONELEMENT.textContent = currentQuestion.question;
@@ -178,6 +176,8 @@ function highlightOption(selectedIndex) {
 
 
 function showResult() {
+
+  clearInterval(timerInterval);
   const finalScore = calculateScore();
 
   const resultModal = document.getElementById('resultModal');
