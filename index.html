@@ -17,7 +17,20 @@
 
 
     <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Quiz App</h2>
-    
+      
+
+    <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+  <div
+    id="progressBar"
+    class="bg-blue-500 h-2 rounded-full transition-all duration-300"
+    style="width: 0%"
+  ></div>
+</div>
+
+<p id="progressText" class="text-sm text-right mb-2">
+  0 / 15 answered
+</p>
+
     
     <h3 id="question" class="text-lg font-medium mb-6 text-gray-700">
       Question............
@@ -52,15 +65,19 @@
   >
     <h2 class="text-2xl font-bold mb-2">Quiz Completed 🎉</h2>
     <p id="scoreText" class="text-lg mb-4"></p>
-
+    <div id="wrongAnswers" class="text-left max-h-64 overflow-y-auto mb-4"></div>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg" onclick="location.reload()">Restart Quiz</button>
+  </div>
     <button
       class="bg-blue-500 text-white px-4 py-2 rounded-lg"
       onclick="location.reload()"
     >
       Restart Quiz
     </button>
+    
   </div>
 </div>
+
 
   </div>
 

@@ -3,6 +3,9 @@ const OPTIONA = document.getElementById('optionA');
 const OPTIONB = document.getElementById('optionB');
 const OPTIONC = document.getElementById('optionC');
 const OPTIOND = document.getElementById('optionD');
+const PROGRESSBAR = document.getElementById('progressBar');
+const PROGRESSTEXT = document.getElementById('progressText');
+
 const OPTIONS = [OPTIONA, OPTIONB, OPTIONC, OPTIOND];
 const userAnswers = []
 
@@ -15,6 +18,18 @@ const TIMER = document.getElementById('timer');
 const PREVIOUSBTN = document.getElementById('prevBtn');
 const NEXTBTN = document.getElementById('nextBtn');
 
+
+function updateProgress() {
+  const answeredCount = userAnswers.filter(
+    answer => answer !== undefined
+  ).length;
+
+  const total = Questionarr.length;
+  const percentage = (answeredCount / total) * 100;
+
+  PROGRESSBAR.style.width = `${percentage}%`;
+  PROGRESSTEXT.textContent = `${answeredCount} / ${total} answered`;
+}
 
 const  Questionarr = [
 {question: 'Which HTML tag is used to define the structure of a web page?', 
@@ -105,6 +120,7 @@ function showQuestion() {
 shuffleArray(Questionarr);
 showQuestion();
 startTimer();
+updateProgress();
 
 
 
@@ -134,6 +150,7 @@ PREVIOUSBTN.addEventListener('click', showPrev);
 function selectAnswer(optionIndex) {
   userAnswers[currentIndex] = optionIndex;
   highlightOption(optionIndex);
+   updateProgress();
 }
 
 
@@ -205,6 +222,26 @@ scoreText.textContent =
     ? `🎉 Great job! You scored ${finalScore}/15`
     : `😢 Try again. You scored ${finalScore}/15`;
 
+
+    const wrongQuestions = getWrongQuestions();
+const wrongContainer = document.getElementById('wrongAnswers');
+wrongContainer.innerHTML = ''; 
+
+if (wrongQuestions.length > 0) {
+  wrongQuestions.forEach(item => {
+    const div = document.createElement('div');
+    div.classList.add('mb-4', 'p-2', 'border', 'rounded-lg', 'bg-gray-50');
+    div.innerHTML = `
+      <p class="font-semibold">Q: ${item.question}</p>
+      <p class="text-red-500">Your Answer: ${item.userAnswer || 'No answer'}</p>
+      <p class="text-green-600">Correct Answer: ${item.correctAnswer}</p>
+    `;
+    wrongContainer.appendChild(div);
+  });
+} else {
+  wrongContainer.innerHTML = '<p class="text-green-600">You got all answers correct! 🎉</p>';
+}
+
 }
 
 function startTimer() {
@@ -226,6 +263,23 @@ function autoSubmitQuiz() {
   PREVIOUSBTN.disabled = true;
 
   showResult(); 
+}
+
+
+function getWrongQuestions() {
+  const wrong = [];
+
+  for (let i = 0; i < Questionarr.length; i++) {
+    if (userAnswers[i] !== Questionarr[i].answer) {
+      wrong.push({
+        question: Questionarr[i].question,
+        userAnswer: Questionarr[i].options[userAnswers[i]],
+        correctAnswer: Questionarr[i].options[Questionarr[i].answer]
+      });
+    }
+  }
+
+  return wrong;
 }
 
 
